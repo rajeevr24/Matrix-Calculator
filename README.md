@@ -1,2 +1,3 @@
 # Matrix-Calculator
-A simple matrix calculator written in Python.
+
+A simple matrix calculator written in Python. For Hyperskill assignment.
