@@ -13,12 +13,14 @@ def get_matrix(msg1, msg2, type):
 
     return matrix
 
+
 # ---------------------------------------------------------
 
 
 def get_constant():
     print("Enter constant:")
     return float(input())
+
 
 # ---------------------------------------------------------
 
@@ -29,7 +31,7 @@ def add_matrices(matrix_1, matrix_2):
     h_2, w_2 = len(matrix_2), len(matrix_2[0])
 
     if (h_1 != h_2) and (w_1 != w_2):
-        raise Exception('ERROR')
+        raise Exception("ERROR")
 
     result = [[0 for _ in range(w_1)] for _ in range(h_1)]
 
@@ -38,6 +40,7 @@ def add_matrices(matrix_1, matrix_2):
             result[y][x] = matrix_1[y][x] + matrix_2[y][x]
 
     return result
+
 
 # ---------------------------------------------------------
 
@@ -54,6 +57,7 @@ def multiply_by_number(matrix_1, constant):
 
     return result
 
+
 # ---------------------------------------------------------
 
 
@@ -69,10 +73,10 @@ def multiply_by_matrix(matrix_1, matrix_2):
 
     for y in range(h_1):
         for x in range(w_2):
-            result[y][x] = sum([matrix_1[y][k] * matrix_2[k][x]
-                                for k in range(w_1)])
+            result[y][x] = sum([matrix_1[y][k] * matrix_2[k][x] for k in range(w_1)])
 
     return result
+
 
 # ---------------------------------------------------------
 
@@ -90,6 +94,7 @@ def transpose_by_main_diagonal(matrix_1):
 
     return result
 
+
 # ----------------------------------------------------------
 
 
@@ -102,9 +107,10 @@ def transpose_by_side_diagonal(matrix_1):
 
     for y in range(h):
         for x in range(w):
-            result[w-1-x][h-1-y] = matrix_1[y][x]
+            result[w - 1 - x][h - 1 - y] = matrix_1[y][x]
 
     return result
+
 
 # ----------------------------------------------------------
 
@@ -117,9 +123,10 @@ def transpose_by_vertical_line(matrix_1):
 
     for y in range(h):
         for x in range(w):
-            result[y][x] = matrix_1[y][w-1-x]
+            result[y][x] = matrix_1[y][w - 1 - x]
 
     return result
+
 
 # ----------------------------------------------------------
 
@@ -132,15 +139,17 @@ def transpose_by_horizontal_line(matrix_1):
 
     for y in range(h):
         for x in range(w):
-            result[y][x] = matrix_1[h-1-y][x]
+            result[y][x] = matrix_1[h - 1 - y][x]
 
     return result
+
 
 # ---------------------------------------------------------
 
 
 def get_matrix_minor(m, i, j):
-    return [row[:j] + row[j+1:] for row in (m[:i]+m[i+1:])]
+    return [row[:j] + row[j + 1 :] for row in (m[:i] + m[i + 1 :])]
+
 
 # ---------------------------------------------------------
 
@@ -153,13 +162,15 @@ def get_matrix_deternminant(m):
 
     # base case for 2x2 matrix
     if len(m) == 2:
-        return m[0][0]*m[1][1]-m[0][1]*m[1][0]
+        return m[0][0] * m[1][1] - m[0][1] * m[1][0]
 
     determinant = 0
     for c in range(len(m)):
-        determinant += ((-1)**c)*m[0][c] * \
-            get_matrix_deternminant(get_matrix_minor(m, 0, c))
+        determinant += (
+            ((-1) ** c) * m[0][c] * get_matrix_deternminant(get_matrix_minor(m, 0, c))
+        )
     return determinant
+
 
 # ---------------------------------------------------------
 
@@ -173,7 +184,7 @@ def get_matrix_inverse(m, det):
     for y in range(h):
         for x in range(w):
 
-            sign = (-1)**(y+x)
+            sign = (-1) ** (y + x)
             cur_minor = get_matrix_minor(m, y, x)
             cur_det = get_matrix_deternminant(cur_minor)
 
@@ -181,6 +192,7 @@ def get_matrix_inverse(m, det):
 
     result = transpose_by_main_diagonal(result)
     return result
+
 
 # ---------------------------------------------------------
 
@@ -200,6 +212,7 @@ def print_matrix(matrix):
     print()  # new line after result output
 
     return
+
 
 # ---------------------------------------------------------
 
@@ -237,17 +250,18 @@ Your choice:"""
             if choice == 1:
 
                 matrix_container[0] = get_matrix(
-                    msg_mat_1_size, msg_mat_1_content, float)
+                    msg_mat_1_size, msg_mat_1_content, float
+                )
                 matrix_container[1] = get_matrix(
-                    msg_mat_2_size, msg_mat_2_content, float)
+                    msg_mat_2_size, msg_mat_2_content, float
+                )
 
                 result = add_matrices(matrix_container[0], matrix_container[1])
                 print_matrix(result)
 
             elif choice == 2:
 
-                matrix_container[0] = get_matrix(
-                    msg_mat_size, msg_mat_content, float)
+                matrix_container[0] = get_matrix(msg_mat_size, msg_mat_content, float)
                 constant = get_constant()
 
                 result = multiply_by_number(matrix_container[0], constant)
@@ -255,56 +269,67 @@ Your choice:"""
 
             elif choice == 3:
                 matrix_container[0] = get_matrix(
-                    msg_mat_1_size, msg_mat_1_content, float)
+                    msg_mat_1_size, msg_mat_1_content, float
+                )
                 matrix_container[1] = get_matrix(
-                    msg_mat_2_size, msg_mat_2_content, float)
+                    msg_mat_2_size, msg_mat_2_content, float
+                )
 
-                result = multiply_by_matrix(
-                    matrix_container[0], matrix_container[1])
+                result = multiply_by_matrix(matrix_container[0], matrix_container[1])
                 print_matrix(result)
 
             elif choice == 4:
 
-                msg_transpose = ['1. Main diagonal', '2. Side diagonal',
-                                 '3. Vertical line', '4. Horizontal line']
+                msg_transpose = [
+                    "1. Main diagonal",
+                    "2. Side diagonal",
+                    "3. Vertical line",
+                    "4. Horizontal line",
+                ]
                 print()
-                print('\n'.join(msg_transpose))
+                print("\n".join(msg_transpose))
                 print("Your choice")
                 choice_of_transpose = int(input())
 
                 if choice_of_transpose == 1:
                     matrix_container[0] = get_matrix(
-                        "Enter matrix size", "Enter matrix", float)
+                        "Enter matrix size", "Enter matrix", float
+                    )
                     result = transpose_by_main_diagonal(matrix_container[0])
                     print_matrix(result)
 
                 elif choice_of_transpose == 2:
                     matrix_container[0] = get_matrix(
-                        "Enter matrix size", "Enter matrix", float)
+                        "Enter matrix size", "Enter matrix", float
+                    )
                     result = transpose_by_side_diagonal(matrix_container[0])
                     print_matrix(result)
 
                 elif choice_of_transpose == 3:
                     matrix_container[0] = get_matrix(
-                        "Enter matrix size", "Enter matrix", float)
+                        "Enter matrix size", "Enter matrix", float
+                    )
                     result = transpose_by_vertical_line(matrix_container[0])
                     print_matrix(result)
 
                 elif choice_of_transpose == 4:
                     matrix_container[0] = get_matrix(
-                        "Enter matrix size", "Enter matrix", float)
+                        "Enter matrix size", "Enter matrix", float
+                    )
                     result = transpose_by_horizontal_line(matrix_container[0])
                     print_matrix(result)
 
             elif choice == 5:
                 matrix_container[0] = get_matrix(
-                    "Enter matrix size", "Enter matrix", float)
+                    "Enter matrix size", "Enter matrix", float
+                )
                 result = get_matrix_deternminant(matrix_container[0])
-                print(f'The result is:\n{result}')
+                print(f"The result is:\n{result}")
 
             elif choice == 6:
                 matrix_container[0] = get_matrix(
-                    "Enter matrix size", "Enter matrix", float)
+                    "Enter matrix size", "Enter matrix", float
+                )
 
                 det = get_matrix_deternminant(matrix_container[0])
 
@@ -316,6 +341,7 @@ Your choice:"""
 
         except Exception as e:
             print(e)
+
 
 # ---------------------------------------------------------
 
